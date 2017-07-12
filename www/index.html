@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!--meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'"!-->
+                        
+        <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+        <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <!--link rel="stylesheet" type="text/css" href="css/main.css"!-->
+    </head>
+    <body>
+        <ons-splitter>            
+            <ons-splitter-side id="chatMenu" side="right" width="220px" collapse>
+                <ons-page>
+                    <ons-list>
+                        <ons-list-item id="open-add-member-dialog" tappable>
+                            Add Member
+                        </ons-list-item>
+                        <ons-list-item id='delete-channel' tappable>
+                            Leave Channel
+                        </ons-list-item>
+                    </ons-list>
+                </ons-page>
+            </ons-splitter-side>
+            <ons-splitter-content id="content" page="./views/login.html"></ons-splitter-content>
+        </ons-splitter>    
+            
+        <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>        
+        
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+        <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
+        <script src="https://media.twiliocdn.com/sdk/js/chat/v0.11/twilio-chat.js"></script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script type="text/javascript" src="js/md5.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>

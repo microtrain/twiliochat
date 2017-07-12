@@ -1,0 +1,134 @@
+#channel-messages li > img {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 2px solid #333;
+  margin-right: 5px;
+}
+
+#channel-messages p.members-read {
+  position: absolute;
+  bottom: 2px;
+  right: 10px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#channel-messages p.members-read img {
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  border: solid 1px #333;
+  float: right;
+  margin-left: 4px;
+}
+
+#channel-messages p.last-read {    
+    bottom: 2px;
+    right: 10px;
+    margin: 0;
+    font-size: 12px;
+    color: red;
+    font-weight: bold;
+    display: none;
+}
+
+#channel-messages li.last-read {
+  border-bottom: 1px solid red;
+  margin-bottom: 5px;
+}
+
+#channel-messages li.last-read p.last-read {
+  display: block;
+}
+
+#channel-messages{
+    overflow: auto;
+    height: calc(100% - 40px);
+}
+
+#channel-message-send{
+    position: fixed; 
+    bottom:0; 
+    width: 100%;
+    height: 40px;
+}
+
+#message-body-input{
+    width: calc(100% - 64px);
+    border: 1px solid gray;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    margin: 0;
+    height: 35px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+#send-message{
+    border-radius: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.triangle-right {
+    background-color: #2e88c4;
+    border-radius: 10px;
+    color: #fff;
+    margin: 1em 0.5em;
+    padding: 5px;
+    position: relative;
+}
+
+.triangle-right::after {
+    border-color: #2e88c4 transparent;
+    border-style: solid;
+    border-width: 10px 0 0 10px;
+    bottom: -10px;
+    content: "";
+    display: block;
+    left: 10px;
+    position: absolute;
+    width: 0;
+}
+
+.triangle-right.top {
+    background-color: #2e88c4;
+}
+
+.triangle-right.top::after {
+    border-color: transparent #2e88c4;
+    border-width: 10px 10px 0 0;
+    bottom: auto;
+    left: auto;
+    right: 10px;
+    top: -10px;
+}
+
+.triangle-left {
+    background-color: #00af00;
+    border-radius: 10px;
+    color: #fff;
+    margin: 1em 0.5em;
+    padding: 5px;
+    position: relative;
+}
+
+.triangle-left::after {
+    border-color: #00af00 transparent;
+    border-style: solid;
+    border-width: 0 10px 10px 0;
+    content: "";
+    display: block;    
+    position: absolute;
+    width: 0;
+    bottom: auto;
+    left: 10px;
+    right: auto;
+    top: -10px;
+}

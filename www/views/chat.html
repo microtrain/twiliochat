@@ -1,0 +1,47 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button id="back-to-channels"></ons-back-button>
+        </div>
+        <div class="center" id="channel-title"></div>
+
+        <div class="right">
+            <ons-toolbar-button>
+                <ons-icon onclick="fn.openChatMenu()" icon="ion-navicon, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+
+    <div id="channel-body" style="height: 100%">
+        <div id="channel-chat" style="height: 100%">
+            <div id="channel-messages" style="padding:5px;">
+                <ul class="list"></ul>
+            </div>
+            <div id="channel-message-send">
+                <div id="typing-indicator"><span></span></div>
+                <textarea id="message-body-input" /></textarea>
+                <button id="send-message" class="button">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ons-dialog id="add-member-dialog">
+        <div style="text-align: center; padding: 10px;">
+            <p>
+                Add User
+            </p>
+
+            <p>
+                <input type="text" class="text-input" id="add-identity" placeholder="Identity"/>
+            </p>
+
+            <p>
+                <ons-button id="add-button">
+                    Add
+                </ons-button>
+            </p>
+        </div>
+    </ons-dialog>
+</ons-page>

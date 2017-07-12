@@ -1,0 +1,13 @@
+# Mac
+.DS_Store
+
+# Node
+npm-debug.log
+/node_modules
+/bower_components
+
+# Cordova
+/platforms
+/plugins
+
+package-lock.json

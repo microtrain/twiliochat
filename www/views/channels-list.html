@@ -1,0 +1,49 @@
+<ons-page>
+    <ons-toolbar>                        
+        <div class="center">
+            Channels
+        </div>
+
+        <div class="right" id="profile">
+            <img src="" id="profile-avatar" style="float: right; height: 100%;">
+            <label style="padding-right: 5px; float: right;"></label>
+        </div>
+    </ons-toolbar>
+
+    <div id="channels" style="overflow: auto; height: calc(100% - 44px);">
+        <div id="invited-channels">
+            <ons-list></ons-list>
+        </div>
+        <div id="my-channels">
+            <ons-list></ons-list>
+        </div>
+
+        <div id="known-channels">
+            <ons-list></ons-list>
+        </div>
+    </div>
+
+    <div style="position: fixed; bottom:0; width: 100%;">
+        <button class="button--large--cta" style="border-radius: 0;" id="open-channel-dialog">
+            Create New Channel
+        </button>
+    </div>
+
+    <ons-dialog id="channel-create-dialog">
+        <div style="text-align: center; padding: 10px;">
+            <p>
+                Channel Name
+            </p>
+
+            <p>
+                <input type="text" class="text-input" id="create-channel-display-name">
+            </p>
+
+            <p>
+                <ons-button id="create-new-channel">
+                    Create Channel
+                </ons-button>
+            </p>
+        </div>
+    </ons-dialog>
+</ons-page>
