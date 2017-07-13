@@ -30,12 +30,21 @@ var userContext = { identity: null, endpoint: null };
 
 ons.ready(function() {
     $('body').delegate('#back-to-channels','click',function(){
-        updateChannels();
+        $('#circular-progress').show();
         fn.load('./views/channels-list.html');
-        setTimeout(function(){
+        updateChannels();
+        
+        
+        hideModal = new lurker();
+        hideModal.start('#channels','change').whenReady(function(){
+            $('#circular-progress').hide();
+        });
+        
+        loadProfie = new lurker();
+        loadProfie.start('#profile','exist').whenReady(function(){
             $('#profile label').text(userContext.identity);
-            $('#profile-avatar').attr('src', 'http://gravatar.com/avatar/' + MD5(userContext.identity) + '?s=40&d=mm&r=g');                
-        },100);
+            $('#profile-avatar').attr('src', 'http://gravatar.com/avatar/' + MD5(userContext.identity) + '?s=40&d=mm&r=g');
+        });
     });
     
     $('#login-name').focus();
@@ -251,13 +260,21 @@ function googleLogIn(googleUser) {
 }
 
 function logIn(identity, displayName) {
+    $('#circular-progress').show();
+    
     var endpointId = MD5(identity);
     //Get access token from twilio SDK(on server)
     $.ajax({
         url: 'https://www.microtrain.net/twilio/twilio/test_token/' + identity + '/' + endpointId +'/',
         type: "GET",
         success: function(data, textStatus, jqXHR) {
-            fn.load('./views/channels-list.html');
+            fn.load('./views/channels-list.html')
+            
+            hideModal = new lurker();
+            hideModal.start('#channels','change').whenReady(function(){
+                $('#circular-progress').hide();
+            });
+            
             var token = data;
 
             userContext.identity = identity;
@@ -283,13 +300,14 @@ function logIn(identity, displayName) {
                     }
                 })
             });
-            
-            setTimeout(function(){
+
+            profileLoader = new lurker();
+            profileLoader.start('#profile','exist').whenReady(function(){
                 $('#profile label').text(client.userInfo.friendlyName || client.userInfo.identity);
-                $('#profile-avatar').attr('src', 'http://gravatar.com/avatar/' + MD5(identity) + '?s=40&d=mm&r=g');                
-            },100);
+                $('#profile-avatar').attr('src', 'http://gravatar.com/avatar/' + MD5(identity) + '?s=40&d=mm&r=g');            
+            });
             
-            
+
             client.userInfo.on('updated', function() {
                 $('#profile label').text(client.userInfo.friendlyName || client.userInfo.identity);
             });
@@ -298,16 +316,13 @@ function logIn(identity, displayName) {
             connectionInfo
               .removeClass('online offline connecting denied')
               .addClass(client.connectionState);
-            
+
             //Set listener for when connection state changes and update label and light
             client.on('connectionStateChanged', function(state) {
               connectionInfo
                 .removeClass('online offline connecting denied')
                 .addClass(client.connectionState);
             });
-            
-            //Fetch all channels the user attached to
-            //updateChannels();
 
             //Set listeners for when a client joins a channel and when a message is added to that channel
             client.on('channelJoined', function(channel) {
@@ -321,6 +336,7 @@ function logIn(identity, displayName) {
             client.on('channelUpdated', updateChannels);
             client.on('channelLeft', leaveChannel);
             client.on('channelRemoved', leaveChannel);
+            
         },
         error: function(jqXHR, textStatus, errorThrown) {
             throw new Error(errorThrown);
@@ -635,10 +651,13 @@ function updateMembers() {
 }
 
 //Updates all channels of which the user is a member
-function updateChannels() {    
-    $('#known-channels ul').empty();
-    $('#invited-channels ul').empty();
-    //$('#my-channels ul').empty();
+function updateChannels() {
+    channelClearer = new lurker();
+    channelClearer.start('#channels','exist').whenReady(function(){
+        $('#known-channels ul').empty();
+        $('#invited-channels ul').empty();
+        $('#my-channels ul').empty();
+    });
 
     client.getUserChannels()
         .then(page => {
@@ -646,18 +665,21 @@ function updateChannels() {
                 return a.friendlyName > b.friendlyName;
             });
             
-            channels.forEach(function(channel) {                
-                switch (channel.status) {
-                    case 'joined':
-                        addJoinedChannel(channel);
-                    break;
-                    case 'invited':
-                        addInvitedChannel(channel);
-                    break;
-                    default:
-                        addKnownChannel(channel);
-                    break;
-                }
+            channelLoader = new lurker();
+            channelLoader.start('#channels','exist').whenReady(function(){
+                channels.forEach(function(channel) {
+                    switch (channel.status) {
+                        case 'joined':
+                            addJoinedChannel(channel);
+                        break;
+                        case 'invited':
+                            addInvitedChannel(channel);
+                        break;
+                        default:
+                            addKnownChannel(channel);
+                        break;
+                    }
+                });
             });
         })
 }
